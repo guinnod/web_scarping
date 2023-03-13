@@ -16,7 +16,8 @@ try:
     print('We have got page! Time: ' + str(time.time() - start_second))
     start_second = time.time()
     # to skip security checking
-    time.sleep(2)
+    while driver.page_source.find('Проверочный код:') == -1:
+        pass
     print('Verify code page opened! Time: ' + str(time.time() - start_second))
     start_second = time.time()
     # filling data to get verify code
@@ -36,11 +37,13 @@ try:
     start_second = time.time()
     driver.execute_script('document.getElementsByTagName(\'input\')[6].value = ' + str(v_code))
     driver.execute_script('document.getElementsByTagName(\'input\')[9].click()')
-    time.sleep(2)
+    while driver.page_source.find('Я даю согласие') == -1:
+        pass
     print('Agree page opened Time: ' + str(time.time() - start_second))
     start_second = time.time()
     driver.execute_script('document.getElementsByTagName(\'button\')[0].click()')
-    time.sleep(1)
+    while driver.page_source.find('Введите символы с картинки:') == -1:
+        pass
     print('End page opened Time: ' + str(time.time() - start_second))
     start_second = time.time()
     end_data = driver.page_source
